@@ -1,0 +1,13 @@
+build/
+.gradle/
+dist/
+node_modules/
+*.class
+local.properties
+.idea/
+*.keystore
+*.jks
+*.p12
+*.key
+*token*
+__pycache__/
