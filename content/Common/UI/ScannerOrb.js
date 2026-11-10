@@ -77,6 +77,7 @@ export class ScannerOrb extends UIElement {
         this.dragging = false;
         this.pressedKey = null;
         this.pressedResult = null;
+        this.pressedFunc = null;
     }
 
     OrbRect(data) {
@@ -94,6 +95,11 @@ export class ScannerOrb extends UIElement {
 
     KeyRect(panel, row, index) {
         return { X: panel.X + 8 + index * 28, Y: panel.Y + 28 + row * 24, W: 25, H: 21 };
+    }
+
+    // 第四排末尾两个功能键：退格与清空。
+    FuncRect(panel, index) {
+        return { X: panel.X + 8 + (2 + index) * 28, Y: panel.Y + 28 + 3 * 24, W: 25, H: 21 };
     }
 
     ResultRect(panel, index) {
@@ -146,6 +152,9 @@ export class ScannerOrb extends UIElement {
         for (let i = 0; i < 4; i++) {
             if (Hit(Main.mouseX, Main.mouseY, this.ResultRect(panel, i))) this.pressedResult = i;
         }
+        for (let i = 0; i < 2; i++) {
+            if (Hit(Main.mouseX, Main.mouseY, this.FuncRect(panel, i))) this.pressedFunc = i;
+        }
     }
 
     FinishPress(data, insideOrb) {
@@ -163,8 +172,18 @@ export class ScannerOrb extends UIElement {
         }
 
         if (this.pressedKey != null) {
-            this.query = this.pressedKey.toLowerCase();
+            // 连续点字母就是逐字输入：新字母接在后面，自动补全随之收窄。
+            this.query += this.pressedKey.toLowerCase();
             this.pressedKey = null;
+            this.refresh(data);
+            return;
+        }
+
+        if (this.pressedFunc != null) {
+            const func = this.pressedFunc;
+            this.pressedFunc = null;
+            if (func === 0) this.query = this.query.slice(0, -1);
+            else this.query = '';
             this.refresh(data);
             return;
         }
@@ -173,8 +192,8 @@ export class ScannerOrb extends UIElement {
             const entry = this.results[this.pressedResult];
             this.pressedResult = null;
             if (entry != null) {
-                // 选中候选词后只显示这一种，方便直接看数量。
-                this.query = entry.abbr || entry.zh;
+                // 选中候选词即补全成它的名字，只看这一种的数量。
+                this.query = entry.zh;
                 this.refresh(data);
             }
         }
@@ -211,6 +230,14 @@ export class ScannerOrb extends UIElement {
                 DrawBorderString(spriteBatch, row[i], Vector2.new(rect.X + 6, rect.Y + 3), Color.White, 0.62);
             }
         });
+
+        for (let i = 0; i < 2; i++) {
+            const rect = this.FuncRect(panel, i);
+            const hover = Hit(Main.mouseX, Main.mouseY, rect);
+            FillRect(spriteBatch, new Rectangle(rect.X, rect.Y, rect.W, rect.H),
+                hover ? Color.new(200, 140, 140) : Color.new(96, 56, 64));
+            DrawBorderString(spriteBatch, i === 0 ? '退' : '清', Vector2.new(rect.X + 6, rect.Y + 3), Color.White, 0.62);
+        }
 
         DrawBorderString(spriteBatch, `检索：${this.query || '（全部）'}`, Vector2.new(panel.X + 8, panel.Y + 128),
             Color.new(170, 200, 230), 0.62);

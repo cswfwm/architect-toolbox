@@ -2,7 +2,6 @@ import { ToolboxData } from '../Players/ToolboxData.js';
 import { ToolboxConfig } from '../Configs/ToolboxConfig.js';
 
 const Main = Terraria.Main;
-const { TextureAssets } = Terraria.GameContent;
 const FillRect = Microsoft.Xna.Framework.Graphics.SpriteBatch['void Draw(Texture2D texture, Rectangle destinationRectangle, Color color)'];
 const DrawBorderString = Terraria.Utils['void DrawBorderString(SpriteBatch sb, string text, Vector2 position, Color color, float scale)'];
 
@@ -13,7 +12,6 @@ export function DrawWorldOverlay(spriteBatch) {
     if (!data.ArchitectEnabled) return;
 
     const config = ModContent.GetInstance(ToolboxConfig);
-    const pixel = TextureAssets.MagicPixel.Value;
     const left = Main.screenPosition.X;
     const top = Main.screenPosition.Y;
     const right = left + Main.screenWidth;
