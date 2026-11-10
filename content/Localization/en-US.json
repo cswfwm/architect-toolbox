@@ -1,0 +1,57 @@
+{
+  "ItemName": {
+    "ArchitectTool": "Architect's Tool",
+    "ArchitectSuite": "Architect's Crafting Suite",
+    "ArchitectSuite2": "Architect's Crafting Suite 2",
+    "EngineerGlasses": "Engineer's Glasses",
+    "EngineerScanner": "Engineer's Scanner",
+    "ArchitectWand": "Architect's Blueprint Wand"
+  },
+  "ItemTooltip": {
+    "ArchitectTool": "Enables Architect mode: free placement in view, grid and ruler, blueprint building",
+    "ArchitectSuite": "Carries every pre-hardmode crafting station",
+    "ArchitectSuite2": "Carries every hardmode crafting station, including the pre-hardmode ones",
+    "EngineerGlasses": "Locks onto the nearest enemy and fires",
+    "EngineerScanner": "Searches containers within 10 tiles",
+    "ArchitectWand": "Hold on a tile to record it into the blueprint"
+  },
+  "Configs": {
+    "ToolboxConfig": {
+      "DisplayName": "Architect Toolbox",
+      "InstantBlueprint": {
+        "Label": "Instant blueprint"
+      },
+      "AutoCraft": {
+        "Label": "Auto craft"
+      },
+      "ShowMaterials": {
+        "Label": "Show materials"
+      },
+      "Reticle": {
+        "Label": "Aim reticle"
+      },
+      "GridAlways": {
+        "Label": "Force grid"
+      },
+      "Ruler": {
+        "Label": "Ruler"
+      },
+      "AmmoPriority": {
+        "Label": "Ammo source",
+        "背包优先": "Inventory first",
+        "弹药栏优先": "Ammo slots first"
+      },
+      "AimRange": {
+        "Label": "Aim range"
+      },
+      "SearchRange": {
+        "Label": "Search radius"
+      }
+    }
+  },
+  "Commands": {
+    "ArchitectCommand": {
+      "Description": "Capture a blueprint area, clear it or build it"
+    }
+  }
+}

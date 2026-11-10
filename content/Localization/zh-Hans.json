@@ -1,0 +1,57 @@
+{
+  "ItemName": {
+    "ArchitectTool": "建筑师工具",
+    "ArchitectSuite": "建筑师制造套装",
+    "ArchitectSuite2": "建筑师制造套装 2",
+    "EngineerGlasses": "工程师眼镜",
+    "EngineerScanner": "工程师搜索机",
+    "ArchitectWand": "建筑师蓝图法杖"
+  },
+  "ItemTooltip": {
+    "ArchitectTool": "装备后开启建筑师模式：视野内自由放置、网格与测距、蓝图构建\n放进建筑师工具栏可长期生效",
+    "ArchitectSuite": "随身携带全部肉前工作台：熔炉、铁砧、锯木机、织布机、炼药台等\n自动制作用它判定工作台",
+    "ArchitectSuite2": "随身携带全部肉后工作台：秘银砧、精金熔炉、书架、水晶球、自动锻造机等",
+    "EngineerGlasses": "自动锁定最近的敌人并开火\n工具栏上会出现独立的武器格，放一把远程武器",
+    "EngineerScanner": "在附近 10 格的范围内检索箱子和容器\n装备后左上角出现悬浮球，可按中文、拼音或英文首字母查找",
+    "ArchitectWand": "手持时点住方块即可把它收进蓝图\n配合 /architect capture 可整块收录"
+  },
+  "Configs": {
+    "ToolboxConfig": {
+      "DisplayName": "建筑师工具箱设置",
+      "InstantBlueprint": {
+        "Label": "蓝图立即构建"
+      },
+      "AutoCraft": {
+        "Label": "自动制作"
+      },
+      "ShowMaterials": {
+        "Label": "显示材料清单"
+      },
+      "Reticle": {
+        "Label": "锁定准星"
+      },
+      "GridAlways": {
+        "Label": "强制网格"
+      },
+      "Ruler": {
+        "Label": "测距显示"
+      },
+      "AmmoPriority": {
+        "Label": "弹药来源",
+        "背包优先": "背包优先",
+        "弹药栏优先": "弹药栏优先"
+      },
+      "AimRange": {
+        "Label": "锁定范围"
+      },
+      "SearchRange": {
+        "Label": "检索半径"
+      }
+    }
+  },
+  "Commands": {
+    "ArchitectCommand": {
+      "Description": "收录蓝图：/architect capture [宽 高]、clear、build"
+    }
+  }
+}

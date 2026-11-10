@@ -1,0 +1,20 @@
+{
+  "uid": "981164ff-b34f-436e-852d-b9d4d3315277",
+  "id": "architecttoolbox",
+  "name": "Architect Toolbox",
+  "localizedNames": { "zh-Hans": "建筑师工具箱", "en-US": "Architect Toolbox" },
+  "version": "0.1.0",
+  "authors": [{ "name": "AiCode", "role": "程序与美术", "color": "#7FC8FF" }],
+  "category": "Itens",
+  "summary": "A light builder's helper: free placement, grid and ruler, blueprints with material math and auto-crafting, portable crafting stations, auto-aim glasses and a nearby container search.",
+  "localizedSummaries": {
+    "zh-Hans": "轻度辅助的建筑师模组：视野内自由放置、强制网格与测距、蓝图保存与构建、材料统计与自动制作、随身工作台、自动瞄准眼镜与附近容器检索。"
+  },
+  "license": "MIT",
+  "featured": false,
+  "updated": "2026-11-10",
+  "blVersion": 2,
+  "entry": "main.js",
+  "dependencies": [],
+  "links": []
+}
