@@ -5,7 +5,6 @@ import { ItemNamesZh } from '../Data/ItemNames.js';
 import { PinyinIndex } from '../Data/PinyinIndex.js';
 
 const Main = Terraria.Main;
-const ItemID = Terraria.ID.ItemID;
 const { TextureAssets } = Terraria.GameContent;
 const FillRect = Microsoft.Xna.Framework.Graphics.SpriteBatch['void Draw(Texture2D texture, Rectangle destinationRectangle, Color color)'];
 const DrawBorderString = Terraria.Utils['void DrawBorderString(SpriteBatch sb, string text, Vector2 position, Color color, float scale)'];
@@ -39,7 +38,7 @@ let CachedIndex = null;
 
 function BuildIndex() {
     const entries = [];
-    for (let type = 1; type < ItemID.Count; type++) {
+    for (let type = 1; type < Terraria.ID.ItemID.Count; type++) {
         const name = Terraria.Lang.GetItemNameValue(type);
         if (!name) continue;
         const extra = ZhByName.get(name) ?? null;

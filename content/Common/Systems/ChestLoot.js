@@ -1,11 +1,10 @@
-import { ToolboxData } from '../Players/ToolboxData.js';
+import { Tile, Present } from '../Ids.js';
 
 const Main = Terraria.Main;
-const TileID = Terraria.ID.TileID;
 
 // 世界生成完成后，往一部分宝箱里放工程师眼镜和工程师搜索机。
 // 与官方示例一致：只看箱子方块与空槽位，随机挑箱子，数量有上限。
-const TARGET_TYPES = [TileID.Containers, TileID.Containers2];
+const TARGET_TYPES = ['Containers', 'Containers2'].map(Tile).filter(Present);
 const CHANCE = 3;      // 每 3 个符合条件的箱子放 1 件
 const MAX_ITEMS = 6;
 

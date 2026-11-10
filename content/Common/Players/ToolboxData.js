@@ -1,9 +1,8 @@
 import { ToolboxConfig } from '../Configs/ToolboxConfig.js';
 import { QuickSpawnItem, TileAt, TileActive, chat, TileObjectDataOf, PlaceObject, SquareTileFrame } from '../Core.js';
+import { Item, Tile, Present } from '../Ids.js';
 
 const Main = Terraria.Main;
-const ItemID = Terraria.ID.ItemID;
-const TileID = Terraria.ID.TileID;
 const Recipe = Terraria.Recipe;
 
 // 六件饰品的定义：id 与工具栏槽位顺序一致。
@@ -16,53 +15,57 @@ export const SLOT_DEFS = [
     { id: 'EngineerScanner', name: '工程师搜索机', desc: '附近容器检索' },
 ];
 
-// 肉前可获得的工作台类型。原版这些站的编号与物品一一对应或见 EXTRA_TILES。
+// 肉前可获得的工作台类型（名字按原版 TileID 取，缺失的自动跳过）。
 export const SUITE1_TILES = [
-    TileID.WorkBenches, TileID.Furnaces, TileID.Anvils, TileID.Bottles,
-    TileID.Tables, TileID.Chairs, TileID.Loom, TileID.Kegs,
-    TileID.Sawmill, TileID.Hellforge, TileID.DyeVat, TileID.CookingPots,
-    TileID.HeavyWorkBench, TileID.TinkerersWorkbench, TileID.HoneyDispenser,
-];
+    'WorkBenches', 'Furnaces', 'Anvils', 'Bottles', 'Tables', 'Chairs',
+    'Loom', 'Kegs', 'Sawmill', 'Hellforge', 'DyeVat', 'CookingPots',
+    'HeavyWorkBench', 'TinkerersWorkbench', 'HoneyDispenser',
+].map(Tile).filter(Present);
 
 
 // 方块类型 -> 放置它的原版物品。多数建材二者编号相同，家具与平台另行列出；
 // 蓝图只收这张表里的方块，避免把床、门这类多格家具放歪。
-const EXTRA_TILES = new Map([
-    [TileID.Platforms, ItemID.WoodPlatform],
-    [TileID.DyeVat, ItemID.DyeVat],
-    [TileID.Tables, ItemID.Table],
-    [TileID.WoodenTable, ItemID.WoodenTable],
-    [TileID.WoodenChair, ItemID.WoodenChair],
-    [TileID.WoodenDoor, ItemID.WoodenDoor],
-    [TileID.WorkBenches, ItemID.WorkBench],
-    [TileID.Bookcases, ItemID.Bookcase],
-    [TileID.Furnaces, ItemID.Furnace],
-    [TileID.Anvils, ItemID.IronAnvil],
-    [TileID.MythrilAnvil, ItemID.MythrilAnvil],
-    [TileID.AdamantiteForge, ItemID.AdamantiteForge],
-    [TileID.Bottles, ItemID.Bottle],
-    [TileID.Kegs, ItemID.Keg],
-    [TileID.Loom, ItemID.Loom],
-    [TileID.Sawmill, ItemID.Sawmill],
-    [TileID.Chairs, ItemID.Chair],
-    [TileID.Torches, ItemID.Torch],
-    [TileID.Campfire, ItemID.Campfire],
-    [TileID.HeartLantern, ItemID.HeartLantern],
-    [TileID.StarinaBottle, ItemID.StarinaBottle],
-    [TileID.CrystalBall, ItemID.CrystalBall],
-    [TileID.HeavyWorkBench, ItemID.HeavyWorkBench],
-    [TileID.Solidifier, ItemID.Solidifier],
-    [TileID.Autohammer, ItemID.Autohammer],
-    [TileID.Hellforge, ItemID.Hellforge],
-    [TileID.CookingPots, ItemID.CookingPot],
-    [TileID.TinkerersWorkbench, ItemID.TinkerersWorkbench],
-    [TileID.HoneyDispenser, ItemID.HoneyDispenser],
-]);
+const TILE_ITEM_PAIRS = [
+    ['Platforms', 'WoodPlatform'],
+    ['DyeVat', 'DyeVat'],
+    ['WoodenTable', 'WoodenTable'],
+    ['WoodenChair', 'WoodenChair'],
+    ['WoodenDoor', 'WoodenDoor'],
+    ['WorkBenches', 'WorkBench'],
+    ['Bookcases', 'Bookcase'],
+    ['Furnaces', 'Furnace'],
+    ['Anvils', 'IronAnvil'],
+    ['MythrilAnvil', 'MythrilAnvil'],
+    ['AdamantiteForge', 'AdamantiteForge'],
+    ['Bottles', 'Bottle'],
+    ['Kegs', 'Keg'],
+    ['Loom', 'Loom'],
+    ['Sawmill', 'Sawmill'],
+    ['Torches', 'Torch'],
+    ['Campfire', 'Campfire'],
+    ['HeartLantern', 'HeartLantern'],
+    ['StarinaBottle', 'StarinaBottle'],
+    ['CrystalBall', 'CrystalBall'],
+    ['HeavyWorkBench', 'HeavyWorkBench'],
+    ['Solidifier', 'Solidifier'],
+    ['Autohammer', 'Autohammer'],
+    ['Hellforge', 'Hellforge'],
+    ['CookingPots', 'CookingPot'],
+    ['TinkerersWorkbench', 'TinkerersWorkbench'],
+    ['HoneyDispenser', 'HoneyDispenser'],
+];
+
+const EXTRA_TILES = new Map();
+for (const [tileName, itemName] of TILE_ITEM_PAIRS) {
+    const tileType = Tile(tileName);
+    const itemType = Item(itemName);
+    if (Present(tileType) && Present(itemType)) EXTRA_TILES.set(tileType, itemType);
+}
 
 export function TileItemOf(tileType) {
     const extra = EXTRA_TILES.get(tileType);
     if (extra != null) return extra;
-    return tileType > 0 && tileType < ItemID.Count ? tileType : 0;
+    return tileType > 0 && tileType < Terraria.ID.ItemID.Count ? tileType : 0;
 }
 
 export class BlueprintCell {

@@ -1,4 +1,5 @@
 import { ToolboxAccessory } from './ToolboxAccessory.js';
+import { Item, Tile, Present } from '../../../Common/Ids.js';
 
 export class ArchitectTool extends ToolboxAccessory {
     get SlotId() { return 'ArchitectTool'; }
@@ -10,10 +11,11 @@ export class ArchitectTool extends ToolboxAccessory {
     }
 
     AddRecipes() {
-        this.CreateRecipe()
-            .AddIngredient(Terraria.ID.ItemID.Wood, 20)
-            .AddIngredient(Terraria.ID.ItemID.Gel, 5)
-            .AddTile(Terraria.ID.TileID.WorkBenches)
-            .Register();
+        const recipe = this.CreateRecipe()
+            .AddIngredient(Item('Wood'), 20)
+            .AddIngredient(Item('Gel'), 5);
+        const bench = Tile('WorkBenches');
+        if (Present(bench)) recipe.AddTile(bench);
+        recipe.Register();
     }
 }

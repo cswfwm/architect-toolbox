@@ -1,4 +1,7 @@
 import { ToolboxAccessory } from './ToolboxAccessory.js';
+import { Item, Tile, Present } from '../../../Common/Ids.js';
+
+const PARTS = ['MythrilAnvil', 'AdamantiteForge', 'Bookcase', 'CrystalBall', 'Autohammer', 'Solidifier'];
 
 export class ArchitectSuite2 extends ToolboxAccessory {
     get SlotId() { return 'ArchitectSuite2'; }
@@ -10,15 +13,13 @@ export class ArchitectSuite2 extends ToolboxAccessory {
     }
 
     AddRecipes() {
-        this.CreateRecipe()
-            .AddIngredient(ModContent.ItemType('ArchitectSuite'))
-            .AddIngredient(Terraria.ID.ItemID.MythrilAnvil)
-            .AddIngredient(Terraria.ID.ItemID.AdamantiteForge)
-            .AddIngredient(Terraria.ID.ItemID.Bookcase)
-            .AddIngredient(Terraria.ID.ItemID.CrystalBall)
-            .AddIngredient(Terraria.ID.ItemID.Autohammer)
-            .AddIngredient(Terraria.ID.ItemID.Solidifier)
-            .AddTile(Terraria.ID.TileID.MythrilAnvil)
-            .Register();
+        const recipe = this.CreateRecipe().AddIngredient(ModContent.ItemType('ArchitectSuite'));
+        for (const name of PARTS) {
+            const type = Item(name);
+            if (Present(type)) recipe.AddIngredient(type);
+        }
+        const anvil = Tile('MythrilAnvil');
+        if (Present(anvil)) recipe.AddTile(anvil);
+        recipe.Register();
     }
 }
