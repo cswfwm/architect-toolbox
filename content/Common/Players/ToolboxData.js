@@ -13,7 +13,7 @@ export const SLOT_DEFS = [
     { id: 'ArchitectSuite2', name: '建筑师制造套装 2', desc: '随身肉后工作台' },
     { id: 'EngineerGlasses', name: '工程师眼镜', desc: '自动锁定并射击最近的敌人' },
     { id: 'ArchitectWand', name: '建筑师蓝图法杖', desc: '点住方块收录进蓝图' },
-    { id: 'EngineerScanner', name: '工程师搜索机', desc: '10x10 范围容器检索' },
+    { id: 'EngineerScanner', name: '工程师搜索机', desc: '附近容器检索' },
 ];
 
 // 肉前可获得的工作台类型。原版这些站的编号与物品一一对应或见 EXTRA_TILES。

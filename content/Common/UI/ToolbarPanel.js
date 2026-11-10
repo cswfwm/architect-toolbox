@@ -53,6 +53,11 @@ export class ToolbarPanel extends UIElement {
         const itemType = ModContent.ItemType(slot.Kind);
 
         if (slot.Filled) {
+            // 建筑师工具是工具栏的“开关”，取走它整个工具栏就没有入口了。
+            if (slot.Kind === 'ArchitectTool') {
+                Chat('建筑师工具不能取出：它是工具栏的开关');
+                return;
+            }
             GiveBack(player, itemType);
             slot.Filled = false;
             SoundEngine.PlaySound(Terraria.ID.SoundID.MenuClose, player.Center);
@@ -68,11 +73,8 @@ export class ToolbarPanel extends UIElement {
 
     Update(gameTime) {
         super.Update(gameTime);
+        // 工具栏常驻：建筑师工具还没放进来时也要能点进去放置。
         const data = LocalData();
-        const visible = data.ArchitectEnabled;
-        this.IgnoresMouseInteraction = !visible;
-        if (!visible) return;
-
         if (this.ContainsPoint(Main.MouseScreen)) Main.player[Main.myPlayer].mouseInterface = true;
         // 手机没有悬停：按下和抬起落在同一格才算一次点击。
         if (!Main.mouseLeft) return;
@@ -95,8 +97,6 @@ export class ToolbarPanel extends UIElement {
 
     DrawSelf(spriteBatch) {
         const data = LocalData();
-        if (!data.ArchitectEnabled) return;
-
         DrawBorderString(spriteBatch, '建筑师工具栏', Vector2.new(this.GetDimensions().X + 3, this.GetDimensions().Y - 18),
             Color.new(150, 210, 255), 0.62);
 
